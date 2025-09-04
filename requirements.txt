@@ -1,6 +1,6 @@
 # Core
 Flask
-grown
+gunicorn
 tqdm
 
 # ML / DL
