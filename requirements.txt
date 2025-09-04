@@ -1,0 +1,17 @@
+# Core
+Flask
+grown
+tqdm
+
+# ML / DL
+tensorflow-cpu
+scikit-learn
+numpy
+pandas
+
+# NLP
+nltk
+
+# Utilities
+joblib
+
