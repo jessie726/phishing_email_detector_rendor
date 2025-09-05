@@ -16,10 +16,10 @@
                 <p class="text-white-50 mb-0">Instantly detect if an email is spam or not</p>
             </div>
             <div class="card-body">
-                <form method="POST">
+                <form id="emailForm">
                     <div class="mb-3">
                         <label for="subject" class="form-label">✉️ Email Subject</label>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter email subject" value="{{ subject }}">
+                        <input type="text" class="form-control" id="subject" placeholder="Enter email subject">
                     </div>
                     <div class="mb-3">
                         <label for="body" class="form-label">📝 Email Body</label>
@@ -40,15 +40,7 @@
             </div>
         </div>
     </div>
-
-    <form id="emailForm">
-        <input id="subject" type="text" placeholder="Enter subject">
-        <textarea id="body" placeholder="Enter email body"></textarea>
-        <button type="submit">Classify Email</button>
-    </form>
-
-    <div id="result"></div>
-
+    
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
