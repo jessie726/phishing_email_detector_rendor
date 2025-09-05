@@ -1,6 +1,7 @@
 import os
 import pickle
 import gdown
+import joblib
 #from tensorflow.keras.models import load_model
 
 
@@ -19,8 +20,7 @@ def load_pipeline(
 
     # Load model
     #model = load_model(model_path, compile=False)
-    with open("final_models/final_tfidf.pkl", "rb") as f:
-        model = pickle.load(f)
+    model = joblib.load("final_models/final_tfidf.pkl")
 
     # Load tokenizer
     if not os.path.exists(tokenizer_path):
