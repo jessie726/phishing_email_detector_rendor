@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import os
 from etl.load import load_pipeline
 from etl.transform import clean_text
+from flask_cors import CORS
+CORS(app)
 
 # Load once at startup
 model, tokenizer, MAXLEN = load_pipeline(
