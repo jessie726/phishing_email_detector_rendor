@@ -27,7 +27,7 @@ def predict():
 
     cleaned_text = clean_text(text)
     X = tokenizer.texts_to_sequences([cleaned_text])
-    X = pad_sequences(X, maxlen=maxlen, padding="post")
+    X = pad_sequences(X, maxlen=120, padding="post")
     y_pred = model.predict(X)[0][0] 
 
     result = "Phishing" if y_pred[0] > 0.5 else "Legitimate"
