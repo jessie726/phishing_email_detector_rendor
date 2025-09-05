@@ -13,9 +13,6 @@ model, tokenizer, MAXLEN = load_pipeline(
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return render_template("index.html")  # put your frontend in templates/index.html
 
 @app.route("/", methods=["GET", "POST"])
 def home():
