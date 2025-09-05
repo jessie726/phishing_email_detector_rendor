@@ -28,5 +28,5 @@ def load_pipeline(
     with open(tokenizer_path, "rb") as f:
         tokenizer = pickle.load(f)'''
 
-    print(f"Loaded model from {model_path}
+    print(f"Loaded model from {model_path}")
     return model
