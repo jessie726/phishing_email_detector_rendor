@@ -1,7 +1,7 @@
 import os
 import pickle
 import gdown
-from tensorflow.keras.models import load_model
+#from tensorflow.keras.models import load_model
 
 
 def load_pipeline(

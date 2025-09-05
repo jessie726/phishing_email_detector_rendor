@@ -5,7 +5,7 @@ tqdm
 gdown
 
 # ML / DL
-tensorflow-cpu
+#tensorflow-cpu
 scikit-learn
 numpy
 pandas
