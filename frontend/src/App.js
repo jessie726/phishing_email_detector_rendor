@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [input, setInput] = useState("");
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    if (!input.trim()) {
-      alert("Please enter some text!");
+    if (!subject.trim() && !body.trim()) {
+      alert("Please enter subject or body!");
       return;
     }
 
@@ -17,7 +18,7 @@ function App() {
       const response = await fetch("https://phishing-detector-backend-7z5b.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input })
+        body: JSON.stringify({ subject, body })
       });
 
       const data = await response.json();
@@ -32,11 +33,17 @@ function App() {
   return (
     <div className="container">
       <h1>📧 Phishing Email Detector</h1>
+      <input
+        type="text"
+        placeholder="Enter subject..."
+        value={subject}
+        onChange={(e) => setSubject(e.target.value)}
+      />
       <textarea
         rows="6"
-        placeholder="Paste email text here..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        placeholder="Enter email body..."
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
       />
       <button onClick={handleSubmit} disabled={loading}>
         {loading ? "Checking..." : "Check Email"}

@@ -3,6 +3,8 @@ import os
 from etl.load import load_pipeline
 from etl.transform import clean_text
 from flask_cors import CORS
+
+app = Flask(__name__)
 CORS(app)
 
 # Load once at startup
@@ -13,18 +15,19 @@ model, tokenizer, MAXLEN = load_pipeline(
     maxlen=120
 )
 
-app = Flask(__name__)
 
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
-    text = data.get("email", "")
+    subject = data.get("subject", "")
+    body = data.get("body", "")
 
-    # Preprocess the input
-    X = clean_text([text], tokenizer, maxlen)
-    y_pred = model.predict(X)
+    text = subject + " " + body
 
-    result = "Phishing" if y_pred[0] > 0.5 else "Legit"
+    X = clean_text(text)
+    y_pred = model.predict([X]) 
+
+    result = "Phishing" if y_pred[0] > 0.5 else "Legitimate"
     return jsonify({"prediction": result})
 
 if __name__ == "__main__":
