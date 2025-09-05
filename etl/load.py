@@ -18,7 +18,9 @@ def load_pipeline(
         gdown.download(url, model_path, quiet=False)
 
     # Load model
-    model = load_model(model_path, compile=False)
+    #model = load_model(model_path, compile=False)
+    with open("final_models/final_tfidf.pkl", "rb") as f:
+        model = pickle.load(f)
 
     # Load tokenizer
     if not os.path.exists(tokenizer_path):
