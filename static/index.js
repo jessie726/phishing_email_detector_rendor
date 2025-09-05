@@ -17,7 +17,19 @@ document.getElementById("emailForm").addEventListener("submit", async function(e
     });
 
     const data = await response.json();
-    resultDiv.innerHTML = `✅ Result: <span style="color: ${data.prediction === 'Phishing' ? 'red' : 'green'}">${data.prediction}</span>`;
+
+    // Build result box
+    if (data.label === "Phishing") {
+      resultDiv.innerHTML = `
+        <div style="background:#ffe6e6; padding:12px; border-radius:6px; color:#b30000; font-weight:bold;">
+          ⚠️ Result: This email is classified as <span style="color:red">${data.label}</span> (${data.prediction})
+        </div>`;
+    } else {
+      resultDiv.innerHTML = `
+        <div style="background:#e6ffe6; padding:12px; border-radius:6px; color:#006600; font-weight:bold;">
+          ✅ Result: This email is classified as <span style="color:green">${data.label}</span> (${data.prediction})
+        </div>`;
+    }
   } catch (error) {
     console.error("Error:", error);
     resultDiv.innerHTML = "❌ Error connecting to backend.";

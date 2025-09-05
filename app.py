@@ -25,12 +25,13 @@ def predict():
         
     pred = model.predict([text])[0]
     prob = model.predict_proba([text])[0][1]
-    prediction = f"Phishing ({prob:.2%})" if pred == 1 else f"Legitimate ({1-prob:.2%})"
+    result = "Phishing" if pred == 1 else "Legitimate"
+    prediction = prob if pred == 1 else 1 - prob
 
     return jsonify({
-        "prediction": prediction,
-        "probability": float(prob)
-    })
+    "label": result,
+    "prediction": f"{prediction:.2%}"
+})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
