@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 
 
 def load_pipeline(
-    model_path="final_models/final_lstm.h5",
+    model_path="final_models/final_bert.h5",
     tokenizer_path="final_models/tokenizer.pkl",
     drive_id=None,
     maxlen=120
