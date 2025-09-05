@@ -21,7 +21,10 @@ def home():
         subject = request.form.get("subject", "")
         body = request.form.get("body", "")
         text = subject + " " + body
-        prediction = model.predict([text])[0]
+        
+        pred = model.predict([text])[0]
+        prob = model.predict_proba([text])[0][1]
+        prediction = f"Phishing ({prob:.2%})" if pred == 1 else f"Legitimate ({1-prob:.2%})"
 
     return render_template("index.html", prediction=prediction, subject=subject, body=body)
 
