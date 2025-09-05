@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, jsonify
 import pickle, os
 from etl.load import load_pipeline
 
-model, tokenizer, MAXLEN = load_pipeline(
+model = load_pipeline(
     model_path="final_models/final_tfidf.pkl"
     #tokenizer_path="final_models/tokenizer.pkl",
     #drive_id="1G0VwRzWS2LmRfjSkkts8gbj902XJuA36",
