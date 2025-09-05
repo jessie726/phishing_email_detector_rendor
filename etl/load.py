@@ -20,13 +20,13 @@ def load_pipeline(
 
     # Load model
     #model = load_model(model_path, compile=False)
-    model = joblib.load("final_models/final_tfidf.pkl")
+    model = joblib.load(model_path)
 
     # Load tokenizer
-    if not os.path.exists(tokenizer_path):
+    '''if not os.path.exists(tokenizer_path):
         raise FileNotFoundError(f"Tokenizer file not found: {tokenizer_path}")
     with open(tokenizer_path, "rb") as f:
-        tokenizer = pickle.load(f)
+        tokenizer = pickle.load(f)'''
 
-    print(f"Loaded model from {model_path} and tokenizer from {tokenizer_path}")
-    return model, tokenizer, maxlen
+    print(f"Loaded model from {model_path}
+    return model
