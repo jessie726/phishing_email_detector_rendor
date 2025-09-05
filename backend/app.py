@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from etl.load import load_pipeline
 from etl.transform import clean_text
 from flask_cors import CORS
@@ -18,17 +19,19 @@ model, tokenizer, MAXLEN = load_pipeline(
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    data = request.json
+    data = request.get_json()
     subject = data.get("subject", "")
     body = data.get("body", "")
 
     text = subject + " " + body
 
-    X = clean_text(text)
-    y_pred = model.predict([X]) 
+    cleaned_text = clean_text(text)
+    X = tokenizer.texts_to_sequences([cleaned_text])
+    X = pad_sequences(X, maxlen=maxlen, padding="post")
+    y_pred = model.predict(X)[0][0] 
 
     result = "Phishing" if y_pred[0] > 0.5 else "Legitimate"
-    return jsonify({"prediction": result})
+    return jsonify({"prediction": result, "score": float(y_pred)})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
