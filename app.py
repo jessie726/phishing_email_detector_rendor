@@ -12,21 +12,25 @@ model = load_pipeline(
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def home():
-    prediction = None
-    subject, body = "", ""
+    return render_template("index.html")
 
-    if request.method == "POST":
-        subject = request.form.get("subject", "")
-        body = request.form.get("body", "")
-        text = subject + " " + body
+@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.get_json()
+    subject = data.get("subject", "")
+    body = data.get("body", "")
+    text = subject + " " + body
         
-        pred = model.predict([text])[0]
-        prob = model.predict_proba([text])[0][1]
-        prediction = f"Phishing ({prob:.2%})" if pred == 1 else f"Legitimate ({1-prob:.2%})"
+    pred = model.predict([text])[0]
+    prob = model.predict_proba([text])[0][1]
+    prediction = f"Phishing ({prob:.2%})" if pred == 1 else f"Legitimate ({1-prob:.2%})"
 
-    return render_template("index.html", prediction=prediction, subject=subject, body=body)
+    return jsonify({
+        "prediction": prediction,
+        "probability": float(prob)
+    })
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

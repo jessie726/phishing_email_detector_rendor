@@ -40,6 +40,15 @@
             </div>
         </div>
     </div>
+
+    <form id="emailForm">
+        <input id="subject" type="text" placeholder="Enter subject">
+        <textarea id="body" placeholder="Enter email body"></textarea>
+        <button type="submit">Classify Email</button>
+    </form>
+
+    <div id="result"></div>
+
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
