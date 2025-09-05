@@ -3,7 +3,6 @@ Flask
 gunicorn
 tqdm
 gdown
-flask_cors
 
 # ML / DL
 tensorflow-cpu
