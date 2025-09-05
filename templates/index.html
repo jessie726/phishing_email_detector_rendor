@@ -29,6 +29,7 @@
                         <button type="submit" class="btn btn-primary w-100">🔍 Classify Email</button>
                     </div>
                 </form>
+                <div id="result" class="mt-3 text-center"></div>
                 {% if prediction %}
                 <div class="alert mt-4 text-center
                     {% if prediction == 'Spam' %} alert-danger
@@ -40,7 +41,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
