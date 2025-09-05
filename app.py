@@ -15,22 +15,15 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
     prediction = None
-    email_text = ""
+    subject, body = "", ""
 
     if request.method == "POST":
-        email_text = request.form.get("email_text", "")
+        subject = request.form.get("subject", "")
+        body = request.form.get("body", "")
+        text = subject + " " + body
+        prediction = model.predict([text])[0]
 
-        # Transform input using TF-IDF
-        X = tokenizer.transform([email_text])
-
-        # Predict
-        pred = model.predict_proba(X)[0]
-        phishing_prob = pred[1]
-        legit_prob = pred[0]
-
-        prediction = f"Phishing ({phishing_prob:.2%})" if phishing_prob > 0.5 else f"Legitimate ({legit_prob:.2%})"
-
-    return render_template("index.html", prediction=prediction, email_text=email_text)
+    return render_template("index.html", prediction=prediction, subject=subject, body=body)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
